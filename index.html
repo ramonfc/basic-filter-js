@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/main.js" type="module" defer></script>
+</head>
+<body>
+    <div class="container">
+        <button class="btn">Show Users</button>
+        <div class="filters">
+            <label for="age-filter">Age</label>
+            <input type="number" name="age-filter" id="age-filter">
+
+
+            <label for="country-filter">Country</label>
+            <input type="text" name="country-filter" id="country-filter">
+        </div>
+
+
+        <table id="content">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th id="name">Name</th>
+                    <th id="age">Age</th>
+                    <th id="country">Country</th>
+                    <th id="image">Image</th>
+                </tr>
+            </thead>
+            <tbody id="table-content"></tbody>
+        </table>
+    </div>
+</body>
+</html>
