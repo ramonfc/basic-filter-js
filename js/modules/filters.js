@@ -18,9 +18,15 @@ function filterBy(list, selection, value) {
             break;
     }
 
-   return newList;
+    return newList;
 }
 
 
+function findUniqueElements(list) {
+    const uniqueElements = new Set(list);
 
-export { showFilters, filterBy}
+    return [...uniqueElements];
+}
+
+
+export { showFilters, filterBy, findUniqueElements }
