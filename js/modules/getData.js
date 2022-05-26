@@ -47,38 +47,4 @@ function reset(element){
 }
 
 
-
-function compareAs(a, b) {
-    if (a.templeName > b.templeName) {
-      // sort b before a
-      return 1;
-    } else if (a.templeName < b.templeName) {
-      // a and b different but unchanged (already in the correct order)
-      return -1;
-    } else return 0; // a and b are equal
-  }
-  function compareDes(a, b) {
-    if (a.templeName < b.templeName) {
-        return 1;
-      }
-      if (a.templeName > b.templeName) {
-        return -1;
-      }
-      return 0;
-  }
-
-
-function sortBy(){
-    reset();
-    const selectElement = document.querySelector("#sortBy").value;
-    if (selectElement === "templeNameAscending") {
-       output(templeList.sort(compareAs));
-    }else{
-        output(templeList.sort(compareDes));
-    }
-    
-}
-
-
-
 export {showTable, getData, reset}

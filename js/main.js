@@ -1,14 +1,17 @@
 import { showTable, getData, reset } from "./modules/getData.js";
-import { showFilters, filterBy, findUniqueElements } from "./modules/filters.js";
+import { showFilters, filterBy, showSelectOptions } from "./modules/filters.js";
 
-
+//  Global variables:
 let data = [];
 const tableData = document.querySelector("#table-content");
+const showUsersBtn = document.querySelector(".btn");
+let age = document.querySelector("#age-filter");
+let countryFilter = document.querySelector("#country-filter");
+
+// Functions:
 
 async function main() {
-
     const url = "https://randomuser.me/api/?results=10&seed=abc";
-
 
     data = await getData(url);
     console.log(data)
@@ -16,14 +19,13 @@ async function main() {
         reset(tableData); // prevents that multiple calls through clicking button, creates more equal data many times
         showTable(data);
         showFilters();
-        filterByAge();
+        filterByAge();      
         filterByCountry();
     }
 }
 
 
-function filterByAge() {
-    let age = document.querySelector("#age-filter");
+function filterByAge() {   
 
     age.addEventListener("input", (event) => {
         reset(tableData);
@@ -44,35 +46,23 @@ function filterByAge() {
 }
 
 
-function filterByCountry() {
-    let countryFilter = document.querySelector("#country-filter");
-
-    let countries = data.map(item => item.location.country);
-    let uniqueCountries = findUniqueElements(countries);
-
-    uniqueCountries.map(country => {
-        let option = document.createElement("option");
-        option.innerHTML = country;
-        option.setAttribute("value", country);
-
-        countryFilter.appendChild(option);
-    });
+function filterByCountry() {    
+  
+    showSelectOptions(data, countryFilter);
 
     countryFilter.addEventListener("change", (event) => {
         reset(tableData);
         const selectElement = event.target.value;
 
         if (selectElement === "select") {
-            reset(tableData);
             showTable(data);
         }
         else {
             let dataFiltered = filterBy(data, "country", selectElement);
             console.log(dataFiltered);
-            reset(tableData);
             showTable(dataFiltered);
         }
     });
 }
 
-document.querySelector(".btn").addEventListener("click", main);
+showUsersBtn.addEventListener("click", main);
