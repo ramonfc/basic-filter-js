@@ -1,6 +1,13 @@
+// Module to get the data from API 
 
+/**
+ * Shows the information fetched from API in a HTML table
+ * @param {Array} data Data fetched from API
+ */
 function showTable(data){
+  // number of line in table
     let i = 1;
+    // creating the content of the table
     data.forEach(element => {
         let row = document.createElement("tr");
 
@@ -30,8 +37,14 @@ function showTable(data){
     });
 }
 
-async function getData(url){
-    // url -- https://randomuser.me/api/?results=10&seeds=foobar
+
+/**
+ * Fetch the data from the API
+ * @returns {Array} Array of objects for a successfull request or an empty array otherwise
+ */
+async function getData(){
+  // url endpoint to get the users. The attribute results contains the list of objects
+  const url = "https://randomuser.me/api/?results=10&seed=abc"; 
     let response = await fetch(url);
     if(response.ok){
         let data = await response.json();
@@ -41,7 +54,10 @@ async function getData(url){
     else return [];
 }
 
-
+/**
+ * Clears the appended elements of the HTML node
+ * @param {Node} element HTML element to clear
+ */
 function reset(element){
     element.innerHTML = "";
 }

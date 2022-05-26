@@ -10,13 +10,21 @@ let countryFilter = document.querySelector("#country-filter");
 
 // Functions:
 
-async function main() {
-    const url = "https://randomuser.me/api/?results=10&seed=abc";
 
-    data = await getData(url);
-    console.log(data)
+ /**
+  * Main function to  invoke other functions. If there are data from the API request, invoke the functions.
+
+  */
+async function main() {       
+    // getting data
+    data = await getData();    
+    console.log(data);
+
+    // if there are data, call the other functions
     if (data.length > 0) {
-        reset(tableData); // prevents that multiple calls through clicking button, creates more equal data many times
+        // prevents that multiple calls through clicking button, creates more equal data many times
+        reset(tableData);
+
         showTable(data);
         showFilters();
         filterByAge();      
@@ -24,45 +32,52 @@ async function main() {
     }
 }
 
-
+/**
+ * Handling the input for age 
+ */
 function filterByAge() {   
-
+    // changes in the input
     age.addEventListener("input", (event) => {
+        // reset the table elements
         reset(tableData);
+        // get the input value in int
         let ageValue = parseInt(event.target.value);
-        console.log(ageValue);
 
+        // if there is a blank number in input show the fetched data
         if (isNaN(ageValue)) {
-            reset(tableData);
             showTable(data);
         }
+        // if user input some value show the matched ages
         else {
             let dataFiltered = filterBy(data, "age", ageValue);
-            console.log(dataFiltered);
-            reset(tableData);
             showTable(dataFiltered);
         }
     });
 }
 
-
+/**
+ * Handling select for country
+ */
 function filterByCountry() {    
-  
+    // creating the option values in the select
     showSelectOptions(data, countryFilter);
-
+    // changes in the select
     countryFilter.addEventListener("change", (event) => {
+        // reset the table elements
         reset(tableData);
+        // getting the selected option value
         const selectedElement = event.target.value;
-
+        // if the option is the default show the entire table
         if (selectedElement === "select") {
             showTable(data);
         }
+        // if user selected some country show all matches for that country
         else {
             let dataFiltered = filterBy(data, "country", selectedElement);
-            console.log(dataFiltered);
             showTable(dataFiltered);
         }
     });
 }
 
+// run the program by clicking the button
 showUsersBtn.addEventListener("click", main);
