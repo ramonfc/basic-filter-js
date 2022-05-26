@@ -52,13 +52,13 @@ function filterByCountry() {
 
     countryFilter.addEventListener("change", (event) => {
         reset(tableData);
-        const selectElement = event.target.value;
+        const selectedElement = event.target.value;
 
-        if (selectElement === "select") {
+        if (selectedElement === "select") {
             showTable(data);
         }
         else {
-            let dataFiltered = filterBy(data, "country", selectElement);
+            let dataFiltered = filterBy(data, "country", selectedElement);
             console.log(dataFiltered);
             showTable(dataFiltered);
         }

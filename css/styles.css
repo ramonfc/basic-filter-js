@@ -42,6 +42,11 @@ thead tr th{
   grid-column: 2;
 }
 
+th, td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  
+}
 
 .style-filter {
     flex-direction: column;
