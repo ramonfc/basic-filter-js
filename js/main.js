@@ -3,6 +3,7 @@ import { showFilters, filterBy, showSelectOptions } from "./modules/filters.js";
 
 //  Global variables:
 let data = [];
+let dataFiltered = [] /*Added this as a global variable */
 const tableData = document.querySelector("#table-content");
 const showUsersBtn = document.querySelector(".btn");
 let age = document.querySelector("#age-filter");
@@ -46,11 +47,21 @@ function filterByAge() {
         // if there is a blank number in input show the fetched data
         if (isNaN(ageValue)) {
             showTable(data);
+            dataFiltered = data; /*I have added this to show the data*/
         }
         // if user input some value show the matched ages
         else {
-            let dataFiltered = filterBy(data, "age", ageValue);
-            showTable(dataFiltered);
+            /*
+             * I have added the dataFiltered as a global variable
+             * I then use it as a tempt location for the filtered data
+             */
+            if (dataFiltered.length > 0) {
+                dataFiltered = filterBy(dataFiltered, "age", ageValue);
+                showTable(dataFiltered);    
+            } else {
+                dataFiltered = filterBy(data, "age", ageValue);
+                showTable(dataFiltered);
+            }
         }
     });
 }
@@ -70,11 +81,21 @@ function filterByCountry() {
         // if the option is the default show the entire table
         if (selectedElement === "select") {
             showTable(data);
+            dataFiltered = data; /*I have added this to show the data*/
         }
         // if user selected some country show all matches for that country
         else {
-            let dataFiltered = filterBy(data, "country", selectedElement);
-            showTable(dataFiltered);
+            /*
+             * I have added the dataFiltered as a global variable
+             * I then use it as a tempt location for the filtered data
+             */
+            if(dataFiltered.length > 0) {
+                dataFiltered = filterBy(dataFiltered, "country", selectedElement);
+            showTable(dataFiltered);    
+            } else {
+                dataFiltered = filterBy(data, "country", selectedElement);
+                showTable(dataFiltered);
+            }
         }
     });
 }
