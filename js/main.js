@@ -1,5 +1,5 @@
 import { showTable, getData, reset } from "./modules/getData.js";
-import { showFilters, filterBy, showSelectOptions } from "./modules/filters.js";
+import { showFilters, filterBy, showSelectOptions, filterBy2 } from "./modules/filters.js";
 
 //  Global variables:
 let data = [];
@@ -30,39 +30,41 @@ async function main() {
         showFilters();
         filterByAge();      
         filterByCountry();
+        // filterByAgeCountry();
     }
 }
+
+
 
 /**
  * Handling the input for age 
  */
 function filterByAge() {   
     // changes in the input
+    
     age.addEventListener("input", (event) => {
+        console.log("pais antes de evento", countryFilter.options[countryFilter.selectedIndex].value)
+        let pais = countryFilter.options[countryFilter.selectedIndex].value;
         // reset the table elements
         reset(tableData);
         // get the input value in int
-        let ageValue = parseInt(event.target.value);
-
-        // if there is a blank number in input show the fetched data
-        if (isNaN(ageValue)) {
-            showTable(data);
-            dataFiltered = data; /*I have added this to show the data*/
-        }
-        // if user input some value show the matched ages
-        else {
+        let ageValue = event.target.value;
+        console.log("Age value in main - filterByAge", ageValue);
+        console.log("Age value in main - filterByAge type", typeof(ageValue));
+       
             /*
              * I have added the dataFiltered as a global variable
              * I then use it as a tempt location for the filtered data
              */
             if (dataFiltered.length > 0) {
-                dataFiltered = filterBy(dataFiltered, "age", ageValue);
+                // dataFiltered = filterBy(dataFiltered, "age", ageValue);
+                dataFiltered = filterBy2(data, pais, ageValue);
                 showTable(dataFiltered);    
             } else {
-                dataFiltered = filterBy(data, "age", ageValue);
+                // dataFiltered = filterBy(data, "age", ageValue);
+                dataFiltered = filterBy2(data, pais, ageValue);
                 showTable(dataFiltered);
-            }
-        }
+            } 
     });
 }
 
@@ -70,33 +72,30 @@ function filterByAge() {
  * Handling select for country
  */
 function filterByCountry() {    
+    
     // creating the option values in the select
     showSelectOptions(data, countryFilter);
     // changes in the select
     countryFilter.addEventListener("change", (event) => {
+        console.log("edad antes de evento", age.value);
+        let edad = age.value;
         // reset the table elements
         reset(tableData);
         // getting the selected option value
-        const selectedElement = event.target.value;
-        // if the option is the default show the entire table
-        if (selectedElement === "select") {
-            showTable(data);
-            dataFiltered = data; /*I have added this to show the data*/
-        }
-        // if user selected some country show all matches for that country
-        else {
+        const selectedElement = event.target.value;        
             /*
              * I have added the dataFiltered as a global variable
              * I then use it as a tempt location for the filtered data
              */
             if(dataFiltered.length > 0) {
-                dataFiltered = filterBy(dataFiltered, "country", selectedElement);
+                // dataFiltered = filterBy(dataFiltered, "country", selectedElement);
+                dataFiltered = filterBy2(data, selectedElement, edad);
             showTable(dataFiltered);    
             } else {
-                dataFiltered = filterBy(data, "country", selectedElement);
+                // dataFiltered = filterBy(data, "country", selectedElement);
+                dataFiltered = filterBy2(data, selectedElement, edad);
                 showTable(dataFiltered);
             }
-        }
     });
 }
 

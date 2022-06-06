@@ -36,6 +36,35 @@ function filterBy(list, selection, value) {
     return newList;
 }
 
+
+
+function filterBy2(list, country, inputAge){
+    let newList = [];
+    console.log("inputAge", inputAge)
+    console.log("country", country)
+    if(inputAge != "" && country != "select"){
+        console.log("entro 1")
+        console.log("list",list)
+        newList = list.filter(item => item.dob.age == inputAge);
+        console.log(newList)
+        newList = newList.filter(item => item.location.country === country);
+    }
+    else if(inputAge != ""){
+        console.log("entro 2")
+        newList = list.filter(item => item.dob.age == inputAge);
+    }
+    else if(country != "select") {
+        console.log("entro 3")
+        newList = list.filter(item => item.location.country === country);
+    }
+    else {
+        newList = list;
+    }
+    console.log("newList", newList)
+    return newList;
+}
+
+
 /**
  * Used in the select to find the unique values in the column Country and construct the select option values
  * @param {Array} list Values in the column Country
@@ -76,4 +105,4 @@ function showSelectOptions(data, countryFilter){
     });
 }
 
-export { showFilters, filterBy, findUniqueElements, showSelectOptions }
+export { showFilters, filterBy, findUniqueElements, showSelectOptions, filterBy2 }
